@@ -29,6 +29,5 @@ jobs:
         with:
           image: ${{ steps.build-pytorch-notebook.outputs.image }}
           tags: ${{ steps.build-pytorch-notebook.outputs.tags }}
-          registry: quay.io/donaldsebleung
           username: donaldsebleung+jupyter_pytorch_notebook
           password: ${{ secrets.REGISTRY_PASSWORD }}
