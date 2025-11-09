@@ -14,9 +14,9 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           archs: amd64, arm64
-          context: ./pytorch-notebook
+          context: ./pytorch-notebook/
           containerfiles: |
-            ./Containerfile
+            ./pytorch-notebook/Containerfile
           image: quay.io/donaldsebleung/jupyter-pytorch-notebook
           oci: true
           tags: latest ${{ github.sha }}
