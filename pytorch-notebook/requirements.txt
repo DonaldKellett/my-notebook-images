@@ -1,0 +1,4 @@
+boto3==1.40.69
+jupyter-resource-usage==1.2.0
+jupyter-server-proxy==4.4.0
+tensorboard==2.20.0

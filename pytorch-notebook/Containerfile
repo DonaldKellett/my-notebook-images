@@ -1,0 +1,17 @@
+ARG BASE_REPO="quay.io"
+ARG BASE_OWNER="jupyter"
+ARG BASE_IMAGE="pytorch-notebook"
+ARG BASE_TAG="2025-11-06"
+ARG AUTHORS="Donald Sebastian Leung <donaldsebleung@gmail.com>"
+
+FROM ${BASE_REPO}/${BASE_OWNER}/${BASE_IMAGE}:${BASE_TAG}
+
+LABEL org.opencontainers.image.authors="${AUTHORS}"
+LABEL org.opencontainers.image.title="PyTorch Notebook with useful libraries and extensions"
+
+COPY requirements.txt requirements.txt
+
+RUN pip install -r requirements.txt && \
+    rm -vf requirements.txt && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
