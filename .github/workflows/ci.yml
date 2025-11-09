@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-push-pytorch-notebook:
+    name: Build and push pytorch-notebook to Quay.io
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build pytorch-notebook for amd64 and arm64
+        id: build-pytorch-notebook
+        uses: redhat-actions/buildah-build@v2
+        with:
+          archs: amd64, arm64
+          context: ./pytorch-notebook
+          containerfiles: |
+            ./Containerfile
+          image: quay.io/donaldsebleung/jupyter-pytorch-notebook
+          oci: true
+          tags: latest ${{ github.sha }}
+      - name: Push pytorch-notebook to Quay.io
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-pytorch-notebook.outputs.image }}
+          tags: ${{ steps.build-pytorch-notebook.outputs.tags }}
+          registry: quay.io/donaldsebleung
+          username: donaldsebleung+jupyter_pytorch_notebook
+          password: ${{ secrets.REGISTRY_PASSWORD }}
