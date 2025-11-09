@@ -27,7 +27,8 @@ jobs:
       - name: Push pytorch-notebook to Quay.io
         uses: redhat-actions/push-to-registry@v2
         with:
-          image: ${{ steps.build-pytorch-notebook.outputs.image }}
+          image: jupyter-pytorch-notebook
           tags: ${{ steps.build-pytorch-notebook.outputs.tags }}
+          registry: quay.io/donaldsebleung
           username: donaldsebleung+jupyter_pytorch_notebook
           password: ${{ secrets.REGISTRY_PASSWORD }}
